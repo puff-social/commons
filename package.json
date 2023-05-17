@@ -1,0 +1,26 @@
+{
+  "name": "@puff.social/commons",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.3",
+    "dotenv": "^16.0.3",
+    "prisma": "^4.14.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "@prisma/client": "4.14.0",
+    "envsafe": "^2.0.3",
+    "ioredis": "^5.3.2",
+    "pika-id": "^1.1.3"
+  }
+}
