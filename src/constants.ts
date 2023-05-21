@@ -54,6 +54,7 @@ export enum Event {
   GroupMessage = "GROUP_MESSAGE",
   GroupUserKicked = "GROUP_USER_KICKED",
   GroupUserAwayState = "GROUP_USER_AWAY_STATE",
+  UserLinkSuccess = "USER_LINK_SUCCESS",
   UserLinkError = "USER_LINK_ERROR",
   RateLimited = "RATE_LIMITED",
   InternalError = "INTERNAL_ERROR",
