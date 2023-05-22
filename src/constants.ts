@@ -59,4 +59,5 @@ export enum Event {
   RateLimited = "RATE_LIMITED",
   InternalError = "INTERNAL_ERROR",
   SessionResumed = "SESSION_RESUMED",
+  Deprecated = "OP_DEPRECATED",
 }

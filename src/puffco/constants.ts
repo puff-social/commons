@@ -60,8 +60,6 @@ export interface DeviceState {
   battery: number;
   brightness: number;
   totalDabs: number;
-  charging: "USB" | "None" | "Wireless";
-  profileColor: Colors;
   activeColor: Colors;
   state: PuffcoOperatingState;
   chargeSource: ChargeSource;
@@ -69,4 +67,5 @@ export interface DeviceState {
   profile: GatewayDeviceProfile;
   chamberType: ChamberType;
   deviceModel: string;
+  deviceMac: string;
 }
