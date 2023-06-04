@@ -7,7 +7,7 @@ export const ProductModels = [
   "2",
   "4",
   "12",
-  "13,
+  "13",
 ] as const;
 
 export const ProductModelMap = {
