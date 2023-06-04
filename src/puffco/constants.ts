@@ -1,21 +1,23 @@
 export const ProductModels = [
   "0",
-  "21", // Why another one
-  "4294967295", // wtf is this puffco
+  "21",
+  "4294967295",
   "1",
-  "22", // Again why another, what happened here?
+  "22",
   "2",
   "4",
 ] as const;
 
 export const ProductModelMap = {
   "0": "Peak",
-  "21": "Peak", // Why another one
-  "4294967295": "Peak", // wtf is this puffco
+  "21": "Peak",
+  "4294967295": "Peak",
   "1": "Opal",
-  "22": "Opal", // Again why another, what happened here?
+  "22": "Opal",
   "2": "Indiglow",
   "4": "Guardian",
+  "12": "PeachWhite",
+  "13": "PeachBlack",
 };
 
 export enum PuffcoOperatingState {
