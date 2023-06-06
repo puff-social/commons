@@ -18,8 +18,8 @@ export const ProductModelMap = {
   "22": "Opal",
   "2": "Indiglow",
   "4": "Guardian",
-  "12": "PeachWhite",
-  "13": "PeachBlack",
+  "12": "Pearl",
+  "13": "Onyx",
 };
 
 export enum PuffcoOperatingState {
