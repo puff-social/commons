@@ -2,6 +2,7 @@ export const UserFlags = {
   tester: 1 << 0,
   supporter: 1 << 1,
   admin: 1 << 2,
+  suspended: 1 << 3,
 };
 
 export enum Op {
