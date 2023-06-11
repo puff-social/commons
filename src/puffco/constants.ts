@@ -47,6 +47,18 @@ export enum ChargeSource {
   None = 3,
 }
 
+export enum ProfileIntensity {
+  Standard,
+  High = 0.5,
+  Max = 1,
+}
+
+export const ProfileIntensityMap = {
+  [ProfileIntensity.Standard]: "Standard",
+  [ProfileIntensity.High]: "High",
+  [ProfileIntensity.Max]: "Max",
+};
+
 export interface Colors {
   r: number;
   g: number;
