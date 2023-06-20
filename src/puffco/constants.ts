@@ -80,6 +80,7 @@ export interface DeviceState {
   totalDabs: number;
   dabsPerDay: number;
   activeColor: Colors;
+  stateTime: number;
   state: PuffcoOperatingState;
   chargeSource: ChargeSource;
   deviceName: string;
