@@ -78,6 +78,7 @@ export interface DeviceState {
   battery: number;
   brightness: number;
   totalDabs: number;
+  dabsPerDay: number;
   activeColor: Colors;
   state: PuffcoOperatingState;
   chargeSource: ChargeSource;
