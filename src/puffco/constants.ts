@@ -20,7 +20,27 @@ export const ProductModelMap = {
   "4": "Guardian",
   "12": "Pearl",
   "13": "Onyx",
+  "51": "Peak",
+  "71": "Onyx",
+  "72": "Pearl",
 };
+
+export enum AuditLogCode {
+  CHARGE_START,
+  CHARGER_DISCONNECTED,
+  CHARGE_COMPLETE,
+  HEAT_CYCLE_ENTER_PREHEAT,
+  HEAT_CYCLE_ABORT_PREHEAT,
+  HEAT_CYCLE_ABORT_ACTIVE,
+  HEAT_CYCLE_COMPLETE,
+  HEAT_CYCLE_BOOSTED,
+  SYSTEM_BOOT,
+  HEAT_CYCLE_ACTIVE,
+  FACTORY_RESET,
+  CLOCK_ADJUST,
+  HEAT_CYCLE_FAULTED,
+  MOOD_LIGHT_ENDED,
+}
 
 export enum PuffcoOperatingState {
   INIT_MEMORY,
@@ -73,6 +93,10 @@ export interface GatewayDeviceProfile {
   intensity?: number;
 }
 
+export interface GatewayDeviceLastDab {
+  timestamp: Date;
+}
+
 export interface DeviceState {
   temperature: number;
   battery: number;
@@ -88,4 +112,5 @@ export interface DeviceState {
   chamberType: ChamberType;
   deviceModel: string;
   deviceMac: string;
+  lastDab: GatewayDeviceLastDab;
 }
