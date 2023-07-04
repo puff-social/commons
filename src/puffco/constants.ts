@@ -98,6 +98,10 @@ export interface GatewayDeviceProfile {
 
 export interface GatewayDeviceLastDab {
   timestamp: number;
+  totalTime: number;
+  timeElapsed: number;
+  nominalTemp: number;
+  actualTemp: number;
 }
 
 export interface DeviceState {
