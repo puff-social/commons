@@ -8,6 +8,9 @@ export const ProductModels = [
   "4",
   "12",
   "13",
+  "51",
+  "71",
+  "72",
 ] as const;
 
 export const ProductModelMap = {
