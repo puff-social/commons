@@ -120,4 +120,5 @@ export interface DeviceState {
   deviceModel: string;
   deviceMac: string;
   lastDab: GatewayDeviceLastDab;
+  utcTime: number;
 }
