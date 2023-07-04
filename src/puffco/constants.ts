@@ -94,7 +94,7 @@ export interface GatewayDeviceProfile {
 }
 
 export interface GatewayDeviceLastDab {
-  timestamp: Date;
+  timestamp: number;
 }
 
 export interface DeviceState {
