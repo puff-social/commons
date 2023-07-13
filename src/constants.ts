@@ -28,6 +28,7 @@ export enum Op {
   GroupStrain,
   LinkUser,
   SetMobile,
+  WatchDevice,
   Heartbeat = 420,
 }
 
@@ -62,5 +63,6 @@ export enum Event {
   SessionResumed = "SESSION_RESUMED",
   SessionResumeError = "SESSION_RESUME_ERROR",
   InvalidSyntax = "INVALID_SYNTAX",
+  WatchedDeviceUpdate = "WATCHED_DEVICE_UPDATE",
   Deprecated = "OP_DEPRECATED",
 }
