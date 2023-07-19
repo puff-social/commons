@@ -28,6 +28,18 @@ export const ProductModelMap = {
   "72": "Pearl",
 };
 
+export const MinimumFirmwareMap = {
+  TEMP_PROFILE: "N",
+  MOOD_LIGHTING: "X",
+  CHAMBER_TYPE: "V",
+  PREVIEW_COLOR: "V",
+  FIRMWARE_AUTHENTICATION: "X",
+  BATTERY_PRESERVATION: "Y",
+  VAPOR_SETTING: "AC",
+  LED3: "AF",
+  XL_CHAMBER: "AG",
+};
+
 export enum PuffcoOperatingState {
   INIT_MEMORY,
   MASTER_OFF = 3,
@@ -43,8 +55,9 @@ export enum PuffcoOperatingState {
 
 export enum ChamberType {
   None,
-  Normal = 1,
-  "3D" = 3,
+  Normal,
+  XL,
+  "3D",
 }
 
 export enum ChargeSource {
@@ -53,16 +66,22 @@ export enum ChargeSource {
   None = 3,
 }
 
+export const MIN_INTENSITY = 0;
+export const MAX_INTENSITY = 1;
+export const XL_INTENSITY = 1.5;
+
 export enum ProfileIntensity {
   Standard,
   High = 0.5,
   Max = 1,
+  XL = 1.5,
 }
 
 export const ProfileIntensityMap = {
   [ProfileIntensity.Standard]: "Standard",
   [ProfileIntensity.High]: "High",
   [ProfileIntensity.Max]: "Max",
+  [ProfileIntensity.XL]: "XL",
 };
 
 export interface Colors {
