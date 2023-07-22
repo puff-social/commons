@@ -27,6 +27,24 @@ export function numbersToLetters(value: number) {
   return letters || "A";
 }
 
+export function convertFromHex(hex: string) {
+  hex = hex.toString();
+  let str = "";
+  for (let i = 0; i < hex.length; i += 2)
+    str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+  return str;
+}
+
+export function convertHexStringToNumArray(h: string) {
+  let i: any,
+    j = (i = h.match(/.{2}/g)) != null ? i : [];
+  return j == null
+    ? void 0x0
+    : j.map((k: string) => {
+        return parseInt(k, 0x10);
+      });
+}
+
 export function intArrayToMacAddress(uint8Array: Uint8Array): string {
   const hexString = Array.from(uint8Array)
     .reverse()
