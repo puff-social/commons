@@ -14,17 +14,19 @@ model feedback {
 }
 
 model users {
-  id           String        @id
-  name         String
-  display_name String?
-  image        String?
-  banner       String?
-  flags        Int           @default(0)
-  bio          String?
-  accounts     accounts[]
-  connections  connections[]
-  devices      devices[]
-  sessions     sessions[]
+  id                    String                  @id
+  name                  String
+  display_name          String?
+  image                 String?
+  banner                String?
+  flags                 Int                     @default(0)
+  bio                   String?
+  location              String?
+  accounts              accounts[]
+  connections           connections[]
+  devices               devices[]
+  discord_subscriptions discord_subscriptions[]
+  sessions              sessions[]
 }
 
 model diagnostics {
@@ -85,8 +87,10 @@ model devices {
   last_ip            String?
   user_id            String?
   profiles           Json?
+  last_dab           DateTime?           @db.Timestamp(6)
   device_leaderboard device_leaderboard?
-  users              users?              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  device_logs        device_logs[]
+  users              users?              @relation(fields: [user_id], references: [id])
 }
 
 model accounts {
@@ -120,4 +124,55 @@ model sessions {
   accounts      accounts?    @relation(fields: [account_id], references: [id], onDelete: Cascade)
   connections   connections? @relation(fields: [connection_id], references: [id], onDelete: Cascade)
   users         users        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model device_logs {
+  id             String   @id
+  device_id      String
+  log_id         Int
+  type           Int
+  timestamp      DateTime @db.Timestamp(6)
+  real_timestamp DateTime @db.Timestamp(6)
+  recorded_on    DateTime @default(now()) @db.Timestamp(6)
+  data           Json?
+  devices        devices  @relation(fields: [device_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([device_id, type, timestamp, real_timestamp], map: "device_unq_time_type")
+}
+
+model discord_subscription_tiers {
+  id                    String                  @id
+  name                  String
+  role_id               String
+  discord_subscriptions discord_subscriptions[]
+}
+
+model discord_subscriptions {
+  user_id                    String
+  platform_id                String
+  subscription_id            String
+  subscribed_since           DateTime                   @default(now()) @db.Timestamptz(6)
+  active                     Boolean                    @default(true)
+  months_active              Int                        @default(1)
+  discord_subscription_tiers discord_subscription_tiers @relation(fields: [subscription_id], references: [id], onDelete: Cascade)
+  users                      users                      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([user_id, subscription_id, platform_id])
+}
+
+model discord_users {
+  id            String  @id
+  xp            Int     @default(0)
+  messages      Int     @default(0)
+  vc_time       Int     @default(0)
+  level         Int     @default(dbgenerated("calculate_level(xp)"))
+  vc_time_alone Int     @default(0)
+  invites       Int     @default(0)
+  birthday      String?
+}
+
+model firmware_watches {
+  id     String @id
+  serial String @unique(map: "firmware_serial_unq")
+  user   String
 }

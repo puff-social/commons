@@ -15,6 +15,31 @@ export enum AuditLogCode {
   MOOD_LIGHT_ENDED,
 }
 
+export enum FaultLogCode {
+  CHARGE_LOW_CAPACITY,
+  CHARGE_TEMP_STOP,
+  HEAT_CYCLE_START_LOW_BATTERY,
+  HEATER_CURRENT_SENSE,
+  HEATER_SHORT_CIRCUIT,
+  HEATER_OPEN_CIRCUIT,
+  HEATER_TEMP_ERRATIC,
+  HEATER_TEMP_LOST,
+  HEATER_SAFETY_THERMAL_VIOLATION,
+  LOW_BATTERY_VOLTAGE,
+  HIGH_BATTERY_TEMP,
+  BOND_FAILED,
+  SYSTEM_BOOT,
+  CLOCK_ADJUST,
+}
+
+export interface FaultLog<D = any> {
+  id: number;
+  type: FaultLogCode;
+  realTimestamp: number;
+  timestamp: number;
+  data: D;
+}
+
 export interface AuditLog<D = any> {
   id: number;
   type: AuditLogCode;

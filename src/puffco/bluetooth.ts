@@ -190,7 +190,8 @@ export const LoraxCharacteristicPathMap = {
 
   TEMP_PROFILE_COLOR: "/p/app/thc/colr", // Temp profile color?
 
-  AUDIT_SELECTOR: "/p/logv/aud/sel", // Int32
+  AUDIT_SELECTOR: "/p/logv/aud/sel", // UInt32
+  FAULT_SELECTOR: "/p/logv/flt/sel", // UInt32
   [Characteristic.AUDIT_POINTER]: "/p/logv/aud/curr", // Int32
   [Characteristic.AUDIT_ENTRY]: "/p/logv/aud/entr", // Buffer
   [Characteristic.AUDIT_BEGIN]: "/p/logv/aud/begn", // Int32

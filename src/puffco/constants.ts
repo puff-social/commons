@@ -72,6 +72,8 @@ export const ProductModels = [
   "51",
   "71",
   "72",
+  "15",
+  "74",
 ] as const;
 
 export const ProductModelMap = {
@@ -87,6 +89,8 @@ export const ProductModelMap = {
   "51": "Peak",
   "71": "Onyx",
   "72": "Pearl",
+  "15": "Desert",
+  "74": "Desert",
 };
 
 export const MinimumFirmwareMap = {
