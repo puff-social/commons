@@ -64,5 +64,6 @@ export enum Event {
   SessionResumeError = "SESSION_RESUME_ERROR",
   InvalidSyntax = "INVALID_SYNTAX",
   WatchedDeviceUpdate = "WATCHED_DEVICE_UPDATE",
+  RemoteAction = "REMOTE_ACTION",
   Deprecated = "OP_DEPRECATED",
 }
