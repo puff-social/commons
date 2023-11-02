@@ -96,9 +96,9 @@ export function writeCmd(
   return t;
 }
 
-export function openCmd(r: LoraxLimits, path: string) {
+export function openCmd(r: LoraxLimits, path: string, reservedBytes = 0) {
   const w = Buffer.alloc(1);
-  w.writeUInt8(0, 0);
+  w.writeUInt8(reservedBytes, 0);
 
   const u = Buffer.concat([w, Buffer.from(path)]);
   return u;
