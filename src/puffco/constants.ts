@@ -11,6 +11,7 @@ export const DeviceModelColors = {
   Guardian: "#CACBD2",
   PeachWhite: "#FFFFFF",
   PeachBlack: "#6A6D79",
+  Desert: "#C5B4AA"
 };
 
 export const crcPatterns = [
