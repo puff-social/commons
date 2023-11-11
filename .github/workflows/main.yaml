@@ -28,14 +28,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Increment patch version
-        run: |
-          pnpm version patch -m "CI: Incrementing patch version for push"
-
       - name: Setup git
         run: |
           git config user.name "Actions Bot"
           git config user.email "<>"
+
+      - name: Increment patch version
+        run: |
+          pnpm version patch -m "CI: Incrementing patch version for push"
 
       - name: Push updated package.json to the repository
         run: git push origin main --tags
