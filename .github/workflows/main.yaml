@@ -1,0 +1,45 @@
+name: ci
+concurrency:
+  group: production
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'CI:')"
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Increment patch version
+        run: |
+          pnpm version patch -m "CI: Incrementing patch version for push"
+
+      - name: Setup git
+        run: |
+          git config user.name "Actions Bot"
+          git config user.email "<>"
+
+      - name: Push updated package.json to the repository
+        run: git push origin main --tags
+
+      - name: Publish to github npm registry
+        run: pnpm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GHCR_TOKEN }}
+
