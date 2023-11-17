@@ -9,6 +9,7 @@ const prefixes = [
   "device",
   "connection",
   "account",
+  "debugging",
   {
     prefix: "oauth",
     secure: true,
