@@ -38,20 +38,19 @@ export function processLoraxReply(message: ArrayBuffer) {
   return { seq, error, data };
 }
 
-export function readCmd(loraxLimits: LoraxLimits, t: number, path: string) {
-  const w = Buffer.alloc(6);
-  w.writeUInt16LE(t, 0);
-  w.writeUInt16LE(loraxLimits.maxPayload, 2);
-  w.writeUInt16LE(0, 4);
-  return w;
+export function readCmd(loraxLimits: LoraxLimits, openCmdId: number, cursor = 0) {
+  const buffer = Buffer.alloc(6);
+  buffer.writeUInt16LE(openCmdId, 0);
+  buffer.writeUInt16LE(cursor, 2);
+  buffer.writeUInt16LE(loraxLimits.maxPayload, 4);
+  return buffer;
 }
 
-export function readShortCmd(loraxLimits: LoraxLimits, path: string) {
+export function readShortCmd(loraxLimits: LoraxLimits, path: string, cursor = 0) {
   const w = Buffer.alloc(4);
-  w.writeUInt16LE(0, 0);
+  w.writeUInt16LE(cursor, 0);
   w.writeUInt16LE(loraxLimits.maxPayload, 2);
-  const t = Buffer.concat([w, Buffer.from(path)]);
-  return t;
+  return Buffer.concat([w, Buffer.from(path)]);
 }
 
 export function watchCmd(openCmdId: number, int = 1000, length = 1) {

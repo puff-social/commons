@@ -67,3 +67,25 @@ export function isOtaValid(firmware: Buffer) {
 
   return crcData.readInt32LE(0) === crc32(firmwareData);
 }
+
+export function writeAnimNumArrayToBuffer(v: Buffer) {
+  const buf = Buffer.allocUnsafe(v.length + 48);
+  let y = 0;
+  v.forEach((y, z) =>
+    {
+      if (z % 21 === 0) {
+        buf.writeFloatLE(v[0], y);
+        y += 4;
+      } else {
+        buf.writeFloatLE(y, y);
+        y += 1;
+      }
+    })
+  return buf;
+}
+export function writeInt32NumbersToBuffer(v: Buffer) {
+  const buf = Buffer.allocUnsafe(v.length * 4);
+  v.forEach((y, z) =>
+    buf.writeInt32LE(y, z * 4))
+  return buf;
+}

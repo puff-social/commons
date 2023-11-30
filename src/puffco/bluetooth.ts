@@ -91,10 +91,12 @@ export const Characteristic = {
   TEMPERATURE_OVERRIDE: `${BASE_CHARACTERISTIC}45`,
   TIME_OVERRIDE: `${BASE_CHARACTERISTIC}46`,
   LANTERN_START: `${BASE_CHARACTERISTIC}4a`,
+  LANTERN_PATTERN: `${BASE_CHARACTERISTIC}47`,
   LANTERN_COLOR: `${BASE_CHARACTERISTIC}48`,
+  LANTERN_TIME: `${BASE_CHARACTERISTIC}49`,
   PROFILE_PREHEAT_COLOR: `${BASE_CHARACTERISTIC}6a`,
   PROFILE_ACTIVE_COLOR: `${BASE_CHARACTERISTIC}6b`,
-  PROFILE: `${BASE_CHARACTERISTIC}61`,
+  PROFILE_POINTER: `${BASE_CHARACTERISTIC}61`,
   PROFILE_NAME: `${BASE_CHARACTERISTIC}62`,
   PROFILE_PREHEAT_TEMP: `${BASE_CHARACTERISTIC}63`,
   PROFILE_PREHEAT_TIME: `${BASE_CHARACTERISTIC}64`,
@@ -170,9 +172,10 @@ export const LoraxCharacteristicPathMap = {
   [Characteristic.UTC_TIME]: "/p/sys/time",
   [Characteristic.TEMPERATURE_OVERRIDE]: "/p/app/tmpo",
   [Characteristic.TIME_OVERRIDE]: "/p/app/timo",
+  [Characteristic.LANTERN_PATTERN]: "/p/app/ltrn/scpd",
   [Characteristic.LANTERN_COLOR]: "/p/app/ltrn/colr",
   [Characteristic.LANTERN_START]: "/p/app/ltrn/cmd",
-  [Characteristic.PROFILE]: "/p/app/ltrn/cmd",
+  [Characteristic.LANTERN_TIME]: "/p/app/ltrn/remt",
   [Characteristic.PROFILE_CURRENT]: "/p/app/hcs",
   [Characteristic.LED_BRIGHTNESS]: "/u/app/ui/lbrt",
   [Characteristic.DEVICE_NAME]: "/u/sys/name",
@@ -201,6 +204,9 @@ export const LoraxCharacteristicPathMap = {
   [Characteristic.FAULT_ENTRY]: "/p/logv/flt/entr", // Buffer
   [Characteristic.FAULT_BEGIN]: "/p/logv/flt/begn", // Int32
   [Characteristic.FAULT_END]: "/p/logv/flt/end", // Int32
+
+  BROADCAST_DATA_KEY: "/u/sys/bdk", // Buffer
+  BROADCAST_DATA_COUNTER: "/u/sys/bdc", // UInt32
 };
 
 export const DynamicLoraxCharacteristics = {
@@ -208,7 +214,7 @@ export const DynamicLoraxCharacteristics = {
   [Characteristic.PROFILE_COLOR]: (id: number) => `/u/app/hc/${id}/colr`,
   [Characteristic.PROFILE_PREHEAT_TEMP]: (id: number) => `/u/app/hc/${id}/temp`,
   [Characteristic.PROFILE_PREHEAT_TIME]: (id: number) => `/u/app/hc/${id}/time`,
-  [Characteristic.PROFILE_ACTIVE_COLOR]: (id: number) => `/u/app/hc/${id}/accl`,
+  [Characteristic.PROFILE_ACTIVE_COLOR]: (id: number) => `/u/app/hc/${id}/colr`,
   [Characteristic.PROFILE_PREHEAT_COLOR]: (id: number) =>
     `/u/app/hc/${id}/phcl`,
   [Characteristic.PROFILE_BOOST_TEMP]: (id: number) => `/u/app/hc/${id}/btmp`,
@@ -217,6 +223,9 @@ export const DynamicLoraxCharacteristics = {
     `/u/app/hc/${id}/thrt`,
   PROFILE_INTENSITY: (id: number) => `/u/app/hc/${id}/intn`,
   PROFILE_SCRATCH_PAD: (id: number) => `/u/app/hc/${id}/scpd`,
+  LED_COLOR_ARRAY: (index: number) => `/u/app/led/ca/${index}`,
+  LED_OFFSET_ARRAY: (index: number) => `/u/app/led/oa/${index}`,
+  LED_ANIMATION_ARRAY: (index: number) => `/u/app/led/aa/${index}`,
 };
 
 export const DeviceCommand = {
@@ -304,6 +313,53 @@ export enum ColorMode {
   FullCirclingSlow = 21,
 }
 
+export enum LightPatterns {
+  STEADY = -1,
+  BREATHING,
+  CIRCLING,
+  RISING,
+  PARTY_MODE,
+}
+
+export enum TableColorBytes {
+  Brightness,
+  Speed,
+  LumaAnimation,
+  LedApiTypeCode,
+  PhaseLockNumerator,
+  PhaseLockDenominator,
+  ColorAndOffsetArrayIndices,
+  ColorArrayLength,
+}
+
+export enum NvmArrayIndicies {
+  HeatProfileTemp,
+  HeatProfile0,
+  HeatProfile1,
+  HeatProfile2,
+  HeatProfile3,
+  DefaultLanternArrayIndex,
+  AltLanternArrayIndex,
+}
+
+export enum LanternScratchpadId {
+  LanternExclusiveNewest,
+  LanternExclusive0 = 0,
+  LanternCustomNewest = 16,
+  LanternCustomCustom0 = 1,
+  LanternCustomCustom1 = 16,
+}
+
+export enum ProfileScratchpadId {
+  ProfileNewest = 2,
+  ProfileExclusiveNewest = 3,
+  ProfileCustomNewest = 19,
+  Profile0 = 2,
+  ProfileExclusive0 = 3,
+  ProfileCustom0 = 4,
+  ProfileCustom1 = 19,
+}
+
 export const LightCommands = {
   LANTERN_ON: {
     OLD: new Uint8Array([1, 0, 0, 0]),
@@ -331,6 +387,95 @@ export const LightCommands = {
   },
 };
 
+export const MoodArrayOffsets = {
+  allZeros: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  noAnimationDictionary: {
+    OG: [
+      [],
+      [
+        0, 0, 0, 0, 0, 0, 65536, 0, 0, 65536, 0, 0, 65536, 65536, 0, 0, 65536,
+        65536, 65536, 0,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 65536, 0, 0, 65536, 4096, 4096, 65536, 65536, 4096,
+        4096, 65536, 65536, 65536, 4096,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 65536, 8192, 8192, 65536, 4096, 4096, 65536, 65536,
+        4096, 4096, 65536, 65536, 65536, 4096,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 65536, 8192, 12288, 65536, 4096, 4096, 65536, 65536,
+        4096, 4096, 65536, 65536, 65536, 4096,
+      ],
+      [
+        0, 0, 16384, 16384, 16384, 0, 65536, 8192, 12288, 65536, 4096, 4096,
+        65536, 65536, 4096, 4096, 65536, 65536, 65536, 4096,
+      ],
+      [
+        0, 0, 16384, 16384, 16384, 0, 65536, 8192, 12288, 65536, 4096, 4096,
+        65536, 65536, 20480, 20480, 65536, 65536, 65536, 4096,
+      ],
+    ],
+    Lightning: [
+      [],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65536, 65536, 65536, 0],
+      [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4096, 4096, 0, 0, 4096, 4096, 65536,
+        65536, 65536, 4096,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 0, 8192, 8192, 0, 4096, 4096, 0, 0, 4096, 4096, 65536,
+        65536, 65536, 4096,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 0, 8192, 12288, 0, 4096, 4096, 0, 0, 4096, 4096,
+        65536, 65536, 65536, 4096,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 0, 8192, 12288, 0, 4096, 4096, 16384, 16384, 4096,
+        4096, 65536, 65536, 65536, 4096,
+      ],
+      [
+        0, 0, 0, 0, 0, 0, 20480, 8192, 12288, 20480, 4096, 4096, 16384, 16384,
+        4096, 4096, 65536, 65536, 65536, 4096,
+      ],
+    ],
+  },
+  disco: [
+    15360, 18773, 1707, 5120, 8533, 11947, 15360, 10240, 10240, 5120, 2844,
+    1138, 853, 19627, 19342, 17636, 0, 0, 0, 0,
+  ],
+  splitGradient: [
+    [],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [
+      0, 0, 0, 0, 0, 0, 7680, 25600, 15360, 7680, 12800, 12800, 17920, 17920,
+      12800, 12800, 15360, 15360, 15360, 15360,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 7680, 46080, 15360, 7680, 33280, 33280, 38400, 38400,
+      33280, 33280, 15360, 15360, 15360, 15360,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 7680, 46080, 15360, 7680, 33280, 33280, 38400, 38400,
+      33280, 33280, 15360, 15360, 15360, 15360,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 7680, 66560, 15360, 7680, 53760, 53760, 58880, 58880,
+      53760, 53760, 15360, 15360, 15360, 15360,
+    ],
+    [
+      0, 0, 0, 0, 0, 0, 7680, 66560, 15360, 7680, 53760, 53760, 58880, 58880,
+      53760, 53760, 15360, 15360, 15360, 15360,
+    ],
+  ],
+  verticalSlideShow: [
+    20480, 20480, 20480, 20480, 20480, 20480, 15930, 9100, 11835, 15930, 0, 0,
+    6825, 6825, 0, 0, 20480, 20480, 20480, 20480,
+  ],
+};
+
 export enum PuffLightMode {
   QueryReady,
   MarkedReady,
@@ -349,79 +494,3 @@ export const MiddlewareValue = {
   ULID: "ulid",
   COLORS: "colors",
 };
-
-export const scratchpadIdField = {
-  key: "scratchpadId",
-  type: MiddlewareValue.U_INT_8,
-};
-
-export const moodUlidField = {
-  key: "moodUlid",
-  type: MiddlewareValue.ULID,
-};
-
-export const moodFields = [moodUlidField];
-
-export const moodNameField = {
-  key: "moodName",
-  type: MiddlewareValue.STRING,
-  length: 32,
-};
-
-export const moodDateModifiedField = {
-  key: "moodDateModified",
-  type: MiddlewareValue.U_INT_32,
-};
-
-export const moodTypeField = {
-  key: "moodType",
-  type: MiddlewareValue.U_INT_8,
-};
-
-export const tempoField = {
-  key: "tempo",
-  type: MiddlewareValue.FLOAT,
-};
-
-export const colorsField = {
-  key: "colors",
-  type: MiddlewareValue.COLORS,
-  length: 18,
-};
-
-export const moodFieldsExtended = moodFields.concat(
-  moodNameField,
-  moodDateModifiedField,
-  moodTypeField,
-  tempoField,
-  colorsField
-);
-
-export const originalMoodUlidField = {
-  key: "originalMoodUlid",
-  type: MiddlewareValue.ULID,
-};
-
-export const moodFieldsExtendedWithOriginal = moodFieldsExtended.concat(
-  originalMoodUlidField
-);
-
-export const heatProfileUlidField = {
-  key: "heatProfileUlid",
-  type: MiddlewareValue.ULID,
-};
-
-export const heatProfileDateModifiedField = {
-  key: "heatProfileDateModified",
-  type: MiddlewareValue.U_INT_32,
-};
-
-export const heatProfileFields = [
-  heatProfileUlidField,
-  heatProfileDateModifiedField,
-];
-export const moodAndHeatProfileFields = heatProfileFields.concat(moodFields);
-export const moodAndHeatProfileFieldsExtended =
-  heatProfileFields.concat(moodFieldsExtended);
-export const moodAndHeatProfileFieldsExtendedWithOriginal =
-  heatProfileFields.concat(moodFieldsExtendedWithOriginal);
