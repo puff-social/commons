@@ -11,7 +11,8 @@ export const DeviceModelColors = {
   Guardian: "#CACBD2",
   PeachWhite: "#FFFFFF",
   PeachBlack: "#6A6D79",
-  Desert: "#C5B4AA"
+  Desert: "#C5B4AA",
+  Flourish: "#FFFFFF"
 };
 
 export const crcPatterns = [
@@ -75,6 +76,8 @@ export const ProductModels = [
   "72",
   "15",
   "74",
+  "17",
+  "75",
 ] as const;
 
 export const ProductModelMap = {
@@ -92,6 +95,8 @@ export const ProductModelMap = {
   "72": "Pearl",
   "15": "Desert",
   "74": "Desert",
+  "17": "Flourish",
+  "75": "Flourish",
 };
 
 export const MinimumFirmwareMap = {
@@ -279,4 +284,4 @@ export enum BatteryChargeState {
   DISCONNECTED = 4,
 }
 
-export enum LED3Data {}
+export enum LED3Data { }
