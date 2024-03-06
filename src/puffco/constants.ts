@@ -80,6 +80,28 @@ export const ProductModels = [
   "75",
 ] as const;
 
+export const SerialPrefixMap = [
+  "21", // Peak
+  "22", // Opal
+  "51", // Peak
+  "71", // Onyx
+  "72", // Pearl
+  "74", // Desert
+  "75", // Flourish
+];
+
+export const DeviceModels = {
+  Peak: "0",
+  PeakAlt: "4294967295",
+  Opal: "1",
+  Indiglow: "2",
+  Guardian: "4",
+  Onyx: "13",
+  Pearl: "12",
+  Desert: "15",
+  Flourish: "17",
+};
+
 export const ProductModelMap = {
   "0": "Peak",
   "21": "Peak",
