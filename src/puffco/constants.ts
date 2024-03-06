@@ -88,7 +88,7 @@ export const SerialPrefixMap = {
   Pearl: "72",
   Desert: "74",
   Flourish: "75",
-};
+} as const;
 
 export const DeviceModels = {
   Peak: "0",
@@ -100,7 +100,7 @@ export const DeviceModels = {
   Pearl: "12",
   Desert: "15",
   Flourish: "17",
-};
+} as const;
 
 export const ProductModelMap = {
   "0": "Peak",
