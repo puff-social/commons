@@ -12,7 +12,8 @@ export const DeviceModelColors = {
   PeachWhite: "#FFFFFF",
   PeachBlack: "#6A6D79",
   Desert: "#C5B4AA",
-  Flourish: "#FFFFFF"
+  Flourish: "#4B634E",
+  Storm: "#585D76",
 };
 
 export const crcPatterns = [
@@ -62,22 +63,27 @@ export const crcPatterns = [
 ];
 
 export const ProductModels = [
-  "0",
-  "21",
-  "4294967295",
-  "1",
-  "22",
-  "2",
-  "4",
-  "12",
-  "13",
-  "51",
-  "71",
-  "72",
-  "15",
-  "74",
-  "17",
-  "75",
+  "0", // Model Code for Peak Pro (OG)
+  "21", // Product Code for Pikachu Peak Pro (OG)
+  "4294967295", // Model Code for Peak Pro (OG)
+  "1", // Model Code for Peak Pro (Opal)
+  "22", // Product Code for Pikachu Peak Pro (Opal)
+  "2", // Model Code for Peak Pro (Indiglow)
+  "4", // Model Code for Peak Pro (Guardian)
+  "26", // Product Code for Pikachu Peak Pro (Guardian)
+  "12", // Model Code for Peak Pro v2 (Pearl)
+  "13", // Model Code for Peak Pro v2 (Onyx)
+  "51", // Product Code for Peach Peak Pro (OG)
+  "71", // Product Code for Peach Peak Pro v2 (Onyx)
+  "72", // Product Code for Peach Peak Pro v2 (Pearl)
+  "15", // Model Code for Peak Pro v2 (Desert)
+  "74", // Product Code for Peach Peak Pro v2 (Desert)
+  "17", // Model Code for Peak Pro v2 (Flourish)
+  "75", // Product Code for Peach Peak Pro v2 (Flourish)
+  "19", // Model Code for Peak Pro v2 (Storm)
+  "78", // Product Code for Peach Peak Pro v2 (Storm)
+  "79", // Product Code for Peach Peak Pro v2 (Onyx)
+  "80", // Product Code for Peach Peak Pro v2 (Pearl)
 ] as const;
 
 export const SerialPrefixMap = {
@@ -88,6 +94,7 @@ export const SerialPrefixMap = {
   Pearl: "72",
   Desert: "74",
   Flourish: "75",
+  Storm: "78",
 } as const;
 
 export const DeviceModels = {
@@ -100,6 +107,7 @@ export const DeviceModels = {
   Pearl: "12",
   Desert: "15",
   Flourish: "17",
+  Storm: "19",
 } as const;
 
 export const ProductModelMap = {
@@ -110,6 +118,7 @@ export const ProductModelMap = {
   "22": "Opal",
   "2": "Indiglow",
   "4": "Guardian",
+  "26": "Guardian",
   "12": "Pearl",
   "13": "Onyx",
   "51": "Peak",
@@ -119,6 +128,10 @@ export const ProductModelMap = {
   "74": "Desert",
   "17": "Flourish",
   "75": "Flourish",
+  "19": "Storm",
+  "78": "Storm",
+  "79": "Onyx",
+  "80": "Pearl",
 };
 
 export const MinimumFirmwareMap = {
@@ -306,4 +319,4 @@ export enum BatteryChargeState {
   DISCONNECTED = 4,
 }
 
-export enum LED3Data { }
+export enum LED3Data {}
