@@ -13,6 +13,10 @@ export enum AuditLogCode {
   CLOCK_ADJUST,
   HEAT_CYCLE_FAULTED,
   MOOD_LIGHT_ENDED,
+  UNKNOWN_1 = 14,
+  UNKNOWN_2 = 15,
+  UNKNOWN_3 = 18,
+  UNKNOWN_4 = 20,
 }
 
 export enum FaultLogCode {

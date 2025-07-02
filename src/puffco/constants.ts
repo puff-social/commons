@@ -14,6 +14,7 @@ export const DeviceModelColors = {
   Desert: "#C5B4AA",
   Flourish: "#4B634E",
   Storm: "#585D76",
+  Daybreak: "#581B1C",
 };
 
 export const crcPatterns = [
@@ -84,6 +85,8 @@ export const ProductModels = [
   "78", // Product Code for Peach Peak Pro v2 (Storm)
   "79", // Product Code for Peach Peak Pro v2 (Onyx)
   "80", // Product Code for Peach Peak Pro v2 (Pearl)
+  "23", // Model Code for Peach Peak Pro v2 (Storm)
+  "81", // Product Code for Peach Peak Pro v2 (Storm)
 ] as const;
 
 export const SerialPrefixMap = {
@@ -95,6 +98,7 @@ export const SerialPrefixMap = {
   Desert: "74",
   Flourish: "75",
   Storm: "78",
+  Daybreak: "81",
 } as const;
 
 export const DeviceModels = {
@@ -132,6 +136,8 @@ export const ProductModelMap = {
   "78": "Storm",
   "79": "Onyx",
   "80": "Pearl",
+  "23": "Daybreak",
+  "81": "Daybreak",
 };
 
 export const MinimumFirmwareMap = {
@@ -148,6 +154,8 @@ export const MinimumFirmwareMap = {
 
 export enum PuffcoOperatingState {
   INIT_MEMORY,
+  INIT_VERSION_DISPLAY,
+  INIT_BATTERY_DISPLAY,
   MASTER_OFF = 3,
   SLEEP,
   IDLE,
@@ -155,8 +163,10 @@ export enum PuffcoOperatingState {
   HEAT_CYCLE_PREHEAT,
   HEAT_CYCLE_ACTIVE,
   HEAT_CYCLE_FADE,
-  INIT_VERSION_DISPLAY,
-  INIT_BATTERY_DISPLAY,
+  VERSION_DISP,
+  BATTERY_DISP,
+  FACTORY_TEST,
+  BLE_BONDING_,
 }
 
 export enum ChamberType {
