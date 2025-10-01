@@ -360,6 +360,8 @@ export const LED3Data = {
   [MoodType.CONFETTI]: "CONFETTI",
 };
 
+export const AtmosicOuis = ["F0AD4E"];
+
 export const SilabsOuis = [
   "000B57",
   "003C84",
