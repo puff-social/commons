@@ -20,7 +20,7 @@ export function meetsMinimumFirmware(current: string, minimum: string) {
 
 const revLetters = "ABCDEFGHJKMNPRTUVWXYZ";
 
-export const revisionStringToNumber = (s: string) => {
+export function revisionStringToNumber(s: string) {
   if (typeof s !== "string") return NaN;
   if (s === "X*") return 0;
   if (s.toLowerCase().startsWith("inf")) return Infinity;
@@ -33,9 +33,9 @@ export const revisionStringToNumber = (s: string) => {
     shift = (shift + 1) * revLetters.length + letterIndex;
   }
   return shift + 1;
-};
+}
 
-export const revisionNumberToString = (value: number) => {
+export function revisionNumberToString(value: number) {
   if (typeof value !== "number" || !(value >= 0)) return `${value}`;
   if (value === 0) return "X*";
   let shift = value - 1;
@@ -45,7 +45,7 @@ export const revisionNumberToString = (value: number) => {
     shift = Math.floor(shift / revLetters.length) - 1;
   }
   return out;
-};
+}
 
 export function numbersToLetters(value: number) {
   let letters = "";
