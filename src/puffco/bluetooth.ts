@@ -18,7 +18,7 @@ export const PUP_COMMAND_RESPONSE_CHAR = "baeb965b-58ac-43bf-9cc5-bfb448ec2e72";
 export const HANDSHAKE_KEY = Buffer.from("FUrZc0WilhUBteT2JlCc+A==", "base64");
 export const LORAX_HANDSHAKE_KEY = Buffer.from(
   "ZMZFYlbyb1scoSc3pd1x+w==",
-  "base64"
+  "base64",
 );
 
 export const LoraxCharacteristic = {
@@ -207,6 +207,8 @@ export const LoraxCharacteristicPathMap = {
 
   BROADCAST_DATA_KEY: "/u/sys/bdk", // Buffer
   BROADCAST_DATA_COUNTER: "/u/sys/bdc", // UInt32
+
+  API_VERSION: "/p/sys/fw/api", // UInt32
 };
 
 export const DynamicLoraxCharacteristics = {

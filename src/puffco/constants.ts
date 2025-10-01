@@ -17,6 +17,11 @@ export const DeviceModelColors = {
   Daybreak: "#581B1C",
 };
 
+export const ProxyDeviceModelColors = {
+  Onyx: "TODO",
+  Haze: "TODO",
+};
+
 export const crcPatterns = [
   0, 1996959894, 3993919788, 2567524794, 124634137, 1886057615, 3915621685,
   2657392035, 249268274, 2044508324, 3772115230, 2547177864, 162941995,
@@ -87,6 +92,8 @@ export const ProductModels = [
   "80", // Product Code for Peach Peak Pro v2 (Pearl)
   "23", // Model Code for Peach Peak Pro v2 (Storm)
   "81", // Product Code for Peach Peak Pro v2 (Storm)
+  "10", // Model Code for Proxy (Onyx)
+  "11", // Model Code for Proxy (Haze)
 ] as const;
 
 export const SerialPrefixMap = {
@@ -99,6 +106,8 @@ export const SerialPrefixMap = {
   Flourish: "75",
   Storm: "78",
   Daybreak: "81",
+  ProxyOnyx: "10",
+  ProxyHaze: "11",
 } as const;
 
 export const DeviceModels = {
@@ -112,6 +121,12 @@ export const DeviceModels = {
   Desert: "15",
   Flourish: "17",
   Storm: "19",
+  Daybreak: "23",
+} as const;
+
+export const ProxyDeviceModels = {
+  Onyx: "0",
+  Haze: "1",
 } as const;
 
 export const ProductModelMap = {
@@ -150,6 +165,7 @@ export const MinimumFirmwareMap = {
   VAPOR_SETTING: "AC",
   LED3: "AF",
   XL_CHAMBER: "AG",
+  API_VERSIONS: "AT",
 };
 
 export enum PuffcoOperatingState {
@@ -329,4 +345,17 @@ export enum BatteryChargeState {
   DISCONNECTED = 4,
 }
 
-export enum LED3Data {}
+// WIP
+export const LED3Data = {
+  [MoodType.NO_ANIMATION]: "NO_ANIMATION",
+  [MoodType.DISCO]: "DISCO",
+  [MoodType.FADE]: "FADE",
+  [MoodType.SPIN]: "SPIN",
+  [MoodType.SPLIT_GRADIENT]: "SPLIT_GRADIENT",
+  [MoodType.VERTICAL_SLIDESHOW]: "VERTICAL_SLIDESHOW",
+  [MoodType.TORNADO]: "NO_ANIMATION",
+  [MoodType.BREATHING]: "BREATHING",
+  [MoodType.CIRCLING_SLOW]: "CIRCLING_SLOW",
+  [MoodType.LAVA_LAMP]: "LAVA_LAMP",
+  [MoodType.CONFETTI]: "CONFETTI",
+};
