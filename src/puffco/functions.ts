@@ -15,8 +15,37 @@ export function lettersToNumber(str: string) {
 }
 
 export function meetsMinimumFirmware(current: string, minimum: string) {
-  return lettersToNumber(current) >= lettersToNumber(minimum);
+  return revisionStringToNumber(current) >= revisionStringToNumber(minimum);
 }
+
+const revLetters = "ABCDEFGHJKMNPRTUVWXYZ";
+
+export const revisionStringToNumber = (s: string) => {
+  if (typeof s !== "string") return NaN;
+  if (s === "X*") return 0;
+  if (s.toLowerCase().startsWith("inf")) return Infinity;
+
+  const upper = s.toUpperCase();
+  let shift = -1;
+  for (const u of upper) {
+    const letterIndex = revLetters.indexOf(u);
+    if (letterIndex < 0) return NaN;
+    shift = (shift + 1) * revLetters.length + letterIndex;
+  }
+  return shift + 1;
+};
+
+export const revisionNumberToString = (value: number) => {
+  if (typeof value !== "number" || !(value >= 0)) return `${value}`;
+  if (value === 0) return "X*";
+  let shift = value - 1;
+  let out = "";
+  while (shift >= 0) {
+    out = revLetters[shift % revLetters.length] + out;
+    shift = Math.floor(shift / revLetters.length) - 1;
+  }
+  return out;
+};
 
 export function numbersToLetters(value: number) {
   let letters = "";
@@ -71,21 +100,19 @@ export function isOtaValid(firmware: Buffer) {
 export function writeAnimNumArrayToBuffer(v: Buffer) {
   const buf = Buffer.allocUnsafe(v.length + 48);
   let y = 0;
-  v.forEach((y, z) =>
-    {
-      if (z % 21 === 0) {
-        buf.writeFloatLE(v[0], y);
-        y += 4;
-      } else {
-        buf.writeFloatLE(y, y);
-        y += 1;
-      }
-    })
+  v.forEach((y, z) => {
+    if (z % 21 === 0) {
+      buf.writeFloatLE(v[0], y);
+      y += 4;
+    } else {
+      buf.writeFloatLE(y, y);
+      y += 1;
+    }
+  });
   return buf;
 }
 export function writeInt32NumbersToBuffer(v: Buffer) {
   const buf = Buffer.allocUnsafe(v.length * 4);
-  v.forEach((y, z) =>
-    buf.writeInt32LE(y, z * 4))
+  v.forEach((y, z) => buf.writeInt32LE(y, z * 4));
   return buf;
 }
