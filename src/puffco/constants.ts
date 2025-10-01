@@ -4,6 +4,16 @@ export const TEMPERATURE_MAX = 644;
 export const TEMPERATURE_MIN = 0;
 export const PROFILE_TEMPERATURE_MIN = 400;
 
+export enum ProductSeries {
+  Pikachoid,
+  Proxy,
+}
+
+export const ProductSeriesMap = {
+  [ProductSeries.Pikachoid]: "Pikachoid",
+  [ProductSeries.Proxy]: "Proxy",
+};
+
 export const DeviceModelColors = {
   Peak: "#6A6D78",
   Indiglow: "#8C59AC",
