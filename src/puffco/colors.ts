@@ -2,7 +2,34 @@ import { CBOR } from "cbor-redux";
 
 type Rgb = { r: number; g: number; b: number };
 
-export function parseHeatColorBuffer(buf: ArrayBuffer | Uint8Array) {
+export type ParseHeatColorResult = {
+  rawHex: string;
+  bytes: number[];
+  type: "rgb" | "table" | "null" | "unknown" | "cbor";
+  r?: number;
+  g?: number;
+  b?: number;
+  asCss?: string;
+  luma?: number;
+  speed?: number;
+  colorIndexEncoded?: number;
+  offsetIndexEncoded?: number;
+  lumaAnim?: number;
+  pllNum?: number;
+  pllDenom?: number;
+  offsetIndex?: number;
+  colorIndex?: number;
+  colorLength?: number;
+  decoded?: any;
+  colors?: Rgb[];
+  firstColor?: Rgb;
+  firstColorHex?: string;
+  decodeError?: string;
+};
+
+export function parseHeatColorBuffer(
+  buf: ArrayBuffer | Uint8Array,
+): ParseHeatColorResult {
   const u8 = buf instanceof Uint8Array ? buf : new Uint8Array(buf);
   const hex = Array.from(u8)
     .map((b) => b.toString(16).padStart(2, "0"))
