@@ -267,6 +267,7 @@ export interface DeviceState {
   profile: GatewayDeviceProfile;
   chamberType: ChamberType;
   deviceModel: string;
+  deviceSeries: ProductSeries;
   deviceMac: string;
   lastDab: GatewayDeviceLastDab;
   utcTime: number;
