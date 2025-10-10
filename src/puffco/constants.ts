@@ -139,6 +139,11 @@ export const ProxyDeviceModels = {
   Haze: "1",
 } as const;
 
+export const ProxyProductModelMap = {
+  "0": "Onyx",
+  "1": "Haze",
+} as const;
+
 export const ProductModelMap = {
   "0": "Peak",
   "21": "Peak",
